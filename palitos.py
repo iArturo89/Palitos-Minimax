@@ -29,19 +29,31 @@ def tras_juega():
             val = tempval
             n = i
     num_sticks -= n
-    print(f"La computadora tomó {n} palitos.")
+    sticks_str = "|" * num_sticks
+    print(f"La computadora tomó {n} palitos. Quedan {sticks_str}")
 
-num_sticks = int(input("Ingrese el número inicial de palitos: "))
-while num_sticks > 0:
-    print(f"Quedan {num_sticks} palitos.")
-    player_choice = int(input("¿Cuántos palitos quieres tomar?  de 1 a 3"))
-    while player_choice < MIN_NUM_STICKS or player_choice > min(MAX_NUM_STICKS, num_sticks):
-        player_choice = int(input("Esa no es una cantidad válida. ¿Cuántos palitos quieres tomar? "))
-    num_sticks -= player_choice
-    if num_sticks == 0:
-        print("¡Has ganado!")
-        break
-    tras_juega()
-    if num_sticks == 0:
-        print("¡La computadora ha ganado!")
+def jugar():
+    global num_sticks
+    num_sticks = int(input("Ingrese el número inicial de palitos: "))
+    sticks_str = "|" * num_sticks
+    print(f"Quedan {sticks_str}")
+    while num_sticks > 0:
+        player_choice = int(input("¿Cuántos palitos quieres tomar? "))
+        while player_choice < MIN_NUM_STICKS or player_choice > min(MAX_NUM_STICKS, num_sticks):
+            player_choice = int(input("Esa no es una cantidad válida. ¿Cuántos palitos quieres tomar? "))
+        num_sticks -= player_choice
+        if num_sticks == 0:
+            print("¡Has ganado!")
+            break
+        tras_juega()
+        if num_sticks == 0:
+            print("¡La computadora ha ganado!")
+            break
+        sticks_str = "|" * num_sticks
+        print(f"Quedan {sticks_str}")
+
+while True:
+    jugar()
+    respuesta = input("¿Quieres seguir jugando? (S/N)").lower()
+    if respuesta != "s":
         break
